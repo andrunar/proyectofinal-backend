@@ -17,4 +17,37 @@ const createUser = async (req, res) => {
   })
 }
 
-module.exports = {createUser}
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({})
+    res.json(users)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const deleteUsers = async (req, res) => {
+  try {
+  await User.findByIdAndDelete(req.params.userId)
+    res.json({
+      mensaje: 'Usuario eliminado'
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const estadoUser = async (req, res) => {
+  const { estado } = req.body;
+  const estadoUsuario = new User({
+    estado
+  })
+
+  await estadoUsuario.save()
+  
+  res.json({
+    mensaje: `Cambiando estado`
+  })
+}
+
+module.exports = {createUser, getUsers, deleteUsers, estadoUser}

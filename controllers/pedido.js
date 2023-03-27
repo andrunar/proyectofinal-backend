@@ -16,4 +16,24 @@ const createPedido = async (req, res) => {
   })
 }
 
-module.exports = {createPedido}
+const getPedido = async (req, res) => {
+  try {
+    const pedido = await Pedido.find({})
+    res.json(pedido)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const deletePedido = async (req, res) => {
+  try {
+  await Pedido.findByIdAndDelete(req.params.userId)
+    res.json({
+      mensaje: 'Pedido eliminado'
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+module.exports = {createPedido, getPedido, deletePedido}

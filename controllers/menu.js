@@ -17,4 +17,24 @@ const createMenu = async (req, res) => {
   })
 }
 
-module.exports = {createMenu}
+const getMenu = async (req, res) => {
+  try {
+    const menu = await Menu.find({})
+    res.json(menu)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const deleteMenu = async (req, res) => {
+  try {
+  await Menu.findByIdAndDelete(req.params.userId)
+    res.json({
+      mensaje: 'Usuario eliminado'
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+module.exports = {createMenu, getMenu, deleteMenu}
